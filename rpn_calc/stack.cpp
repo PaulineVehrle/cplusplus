@@ -1,23 +1,25 @@
 #include<iostream>
 #include<cstdlib>
 
+// vr: tu peux renvoyer directement 
 int* init_stack(int n){
-    int* stack = new int[n];
-    return stack;
+  return new int[n];
+  // int* stack = new int[n];
+  // return stack;
 }
 
-void print_stack (int* top, int* stack){
+// vr: tu n'as pas besoin de l'adresse de top ici juste de sa valeur
+void print_stack (int top, int* stack){
     std::cout << "[";
-    for (int i=0; i<*top; i++){
+    for (int i=0; i<top; i++){
         std::cout << stack[i] << " ";
     }
     std::cout << "[" << std::endl;
 }
 
-int delete_stack(int* stack, int* top){
-    int a = stack[*top -1];
-    delete stack;
-    return a;
+// vr: delete_stack delete la stack et ne renvoie rien
+void delete_stack(int* stack){
+  delete stack; // vr: c'est faux vois-tu pourquoi ?
 }
 
 void push(int* stack, int* addresse_top, int operande){
