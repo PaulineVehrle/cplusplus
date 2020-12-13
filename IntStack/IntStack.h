@@ -13,6 +13,9 @@ public:
         }
     }
 
+    //constructeur de copie
+    IntStack (const IntStack& rst) : size(rst.size), top(rst.top), tab(new int[size]) {}
+
     ~IntStack (){
         delete [] tab;
     }
