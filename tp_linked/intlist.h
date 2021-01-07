@@ -2,6 +2,7 @@
 // Integer[4] {12,56}
 class IntCell { 
    friend class IntList; //Aide mémoire pour où le mettre: on choisit ses copains 
+   ~IntCell(){}
 private:
    // IntCell (int val): value(val),next(nullptr),prev(nullptr) {}
    IntCell (int value, IntCell* next=nullptr, IntCell* prev=nullptr): value(value),next(next),prev(prev){}
@@ -152,6 +153,18 @@ public:
       return i;
    }
 
+   ~IntList(){
+      while(top!=0){
+         if (len()==1){
+            delete top;
+            top = 0;
+         }
+         else {
+            top = top->next;
+            delete top->prev;
+         }
+      }
+   }
 private:
    IntCell* top;
    IntCell* bottom;
