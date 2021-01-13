@@ -1,1 +1,6 @@
 Projet traduction français <-> morse
+
+Pour l'utilisation du traducteur :
+- commande "make trad"
+- commande "./trad"
+- il suffit de suivre les indications sur le terminal pour traduire
