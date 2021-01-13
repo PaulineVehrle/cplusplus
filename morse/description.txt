@@ -4,3 +4,12 @@ Pour l'utilisation du traducteur :
 - commande "make trad"
 - commande "./trad"
 - il suffit de suivre les indications sur le terminal pour traduire
+
+Il y a besoin des fichiers:
+- main.cpp
+- fr_to_mo.cpp (français to morse)
+- fr_to_mo.h
+- wavfile.cpp
+- wavfile.h
+- mo_to_fr.cpp (morse to français)
+- mo_to_fr.h
