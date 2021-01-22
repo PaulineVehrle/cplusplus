@@ -1,4 +1,4 @@
-//fichier récupérer. Il permet de créer un wavfile. Il permet aussi d'écrire dans le fichier, en lui donnant un tableau de short
+//fichier qui permet de créer un wavfile. Il permet aussi d'écrire dans le fichier, en lui donnant un tableau de short
 
 #include "wavfile.h"
 #include<iostream>
@@ -79,7 +79,7 @@ void wavfile_close( FILE *file )
 	fclose(file);
 }
 
-//fonction réécrite  à partir de choses trouvées sur Internet
+
 void wavfile_read (FILE *wavFile, int* tableau_donnees){
 	wavfile_header header;
 	int headerSize = sizeof(wavfile_header);
@@ -87,14 +87,12 @@ void wavfile_read (FILE *wavFile, int* tableau_donnees){
 	size_t bytesRead = fread(&header, 1, headerSize, wavFile);
 	int top = 0;
 	if (bytesRead > 0){
-        //Read the data
-        uint16_t bytesPerSample = header.bits_per_sample / 8;      //Number     of bytes per sample
-        uint64_t numSamples = (36 + header.data_length *2) / bytesPerSample; //How many samples are in the wav file?
+        uint16_t bytesPerSample = header.bits_per_sample / 8;
+        uint64_t numSamples = (36 + header.data_length *2) / bytesPerSample;
         static const uint16_t BUFFER_SIZE = 2;
         int8_t* buffer = new int8_t[BUFFER_SIZE];
         while ((bytesRead = fread(buffer, sizeof buffer[0], BUFFER_SIZE / (sizeof buffer[0]), wavFile)) > 0)
         {
-            //std::cout << "Read " << bytesRead << " bytes." << std::endl;
 			int a = int((unsigned char)(buffer[0]) << 24 |
             (unsigned char)(buffer[1]) << 16 |
             (unsigned char)(buffer[2]) << 8 |
@@ -127,14 +125,12 @@ int length(FILE *wavFile ){
 	size_t bytesRead = fread(&header, 1, headerSize, wavFile);
 	int top = 0;
 	if (bytesRead > 0){
-        //Read the data
-        uint16_t bytesPerSample = header.bits_per_sample / 8;      //Number     of bytes per sample
-        uint64_t numSamples = (36 + header.data_length *2) / bytesPerSample; //How many samples are in the wav file?
+        uint16_t bytesPerSample = header.bits_per_sample / 8;
+        uint64_t numSamples = (36 + header.data_length *2) / bytesPerSample;
         static const uint16_t BUFFER_SIZE = 2;
         int8_t* buffer = new int8_t[BUFFER_SIZE];
         while ((bytesRead = fread(buffer, sizeof buffer[0], BUFFER_SIZE / (sizeof buffer[0]), wavFile)) > 0)
         {
-            //std::cout << "Read " << bytesRead << " bytes." << std::endl;
 			int a = int((unsigned char)(buffer[0]) << 24 |
             (unsigned char)(buffer[1]) << 16 |
             (unsigned char)(buffer[2]) << 8 |

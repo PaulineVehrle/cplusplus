@@ -18,7 +18,6 @@ int main(int argc, char* argv[]){
     }
     else {
         std::cout << "La valeur rentrée est invalide" << std::endl;
-        //on verra pour des exceptions plus tard...
     }    
     return 0;
 }

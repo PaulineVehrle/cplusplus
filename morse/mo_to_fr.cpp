@@ -141,8 +141,7 @@ void traduire_mo_fr() {
         }
         else{
             int longueur = length(wavFile);
-            std::cout << longueur << std::endl;
-            int tableau_donnees [longueur];
+            int tableau_donnees[longueur];
             wavfile_read(wavFile, tableau_donnees);
             std::ofstream fichier_texte;
             fichier_texte.open("traduction.txt");
@@ -158,35 +157,27 @@ void traduire_mo_fr() {
                     if (dans_un_espace){//on est déjà dans un espace. On augmente simplement le compteur d'espace
                         toto_espace = toto_espace +1;
                     }
-                    else{//on vient de finir un . ou un -
-                        //std::cout << std::boolalpha << dans_un_espace << std::endl;
-                        //si toto_cara=11025, c'est un . ; si toto_cara=44100,c'est un -
-                        if ((toto_cara<WAVFILE_SAMPLES_PER_SECOND*0.5*0.251) & (toto_cara>WAVFILE_SAMPLES_PER_SECOND*0.5*0.245)){//on met simplement une égalité car s'il y a un léger problème de comptage, on traduira bien quand même
+                    else{//on vient de finir un . ou un - ; on regarde tot_cara pour savoir lequel des 2
+                        if ((toto_cara<WAVFILE_SAMPLES_PER_SECOND*0.5*0.251) & (toto_cara>WAVFILE_SAMPLES_PER_SECOND*0.5*0.245)){//On vient d'etendre un . ; on met simplement une égalité car s'il y a un léger problème de comptage, on traduira bien quand même
                             caractere_courant[top]=1;
-                            //std::cout << "toto_cara court = " << toto_cara << std::endl;
                             top = top +1;
                             toto_cara=0;
                             dans_un_espace=1;//on est dans un espace. Un grand nombre de caractère suivant seront nuls.
-                            //std::cout <<"caractere_courant[" << top << "] = " << caractere_courant[top] << std::endl;
                         }
-                        else if ((toto_cara<WAVFILE_SAMPLES_PER_SECOND*0.5*1.01) & (toto_cara>WAVFILE_SAMPLES_PER_SECOND*0.5*0.99)) {
-                            //std::cout << "toto_cara long = " << toto_cara << std::endl;
+                        else if ((toto_cara<WAVFILE_SAMPLES_PER_SECOND*0.5*1.01) & (toto_cara>WAVFILE_SAMPLES_PER_SECOND*0.5*0.99)) {//on vient d'entendre un -
                             caractere_courant[top]=2;
                             top = top +1;
                             toto_cara=0;
                             dans_un_espace=1;//on est dans un espace. Un grand nombre de caractère suivant seront nuls.
-                            //std::cout <<"caractere_courant[" << top << "] = " << caractere_courant[top] << std::endl;
                         }
-                        else {//c'est juste le bug
+                        else {//on n'a pas réellement finit un caractère . ou - car il n'a pas duré la bonne longueur
                             toto_espace = toto_espace +1;
                         }
-                        //std::cout << "toto_cara = " << toto_cara << std::endl;
-                        //std::cout << std::boolalpha << dans_un_espace << std::endl;
                     }
                 }
                 else{//les 2 derniers caractères ne sont pas tous les deux nuls
-                    if (dans_un_espace){//on vient de finir un espace. si toto_espace=2205 => espace entre 2 sons. Si toto_espace=22050 + 2205 => espace entre 2 caractères. Si toto_espace=44100+2205 => espace entre 2 mots.
-                        if (toto_espace<WAVFILE_SAMPLES_PER_SECOND*0.5*0.1){//espace entre 2 sons
+                    if (dans_un_espace){//on vient de finir un espace.On regarde tot_espace pour connaitre le type d'espace
+                        if (toto_espace<WAVFILE_SAMPLES_PER_SECOND*0.5*0.1){//plus petit espace => espace entre 2 sons
                         }
                         else if ((toto_espace>WAVFILE_SAMPLES_PER_SECOND*0.5*0.15) and (toto_espace<WAVFILE_SAMPLES_PER_SECOND*0.5*0.6)){//espace entre 2 caractères
                             char c = caractere(caractere_courant);
@@ -222,19 +213,16 @@ void traduire_mo_fr() {
                             fichier_texte << '\n';
                             top=0;
                         }
-                        //std::cout << "toto_espace = " << toto_espace << std::endl; 
                         toto_espace = 0;
-                        //std::cout << std::boolalpha << dans_un_espace << std::endl;
                         dans_un_espace=0;
-                        //std::cout << std::boolalpha << dans_un_espace << std::endl;
                     }
                     else{
                         toto_cara = toto_cara +1;
                     }
                 }
             }
-            //std::cout << "top = " << top << std::endl;
-            if (top!=0){
+
+            if (top!=0){//si le dernier caractère n'a pas été mis ajouter (car on n'est pas reparti sur un espace)
                 char c = caractere(caractere_courant);
                 fichier_texte << c;
                 std::cout << c;

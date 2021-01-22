@@ -155,7 +155,7 @@ void traduire_fr_mo(){
     std::ifstream fichier (file_name);//pour lire le fichier
     std::string ligne { "" };
     int longueur = 0;//longueur = longueur du tableau de données qu'on va ajouter au wav file
-    int li = 0;
+    int li = 0;//compteur du nombre de ligne, utile si on a un fichier texte en entrée
 
     bool not_espace = 1;
 
@@ -180,7 +180,6 @@ void traduire_fr_mo(){
                         not_espace=0;
                     }
                 }
-
                 if (not_espace){
                     longueur = longueur + WAVFILE_SAMPLES_PER_SECOND*0.5*0.5;
                 }
@@ -194,8 +193,6 @@ void traduire_fr_mo(){
         if (b){
             li=1;
         }
-        //std::cout << "longueur  = " << longueur << std::endl;
-        //std::cout << "li = " << li << std::endl;
 
         if (li > 1){//on intègre des retours à la ligne seulement s'il y a plusieurs lignes
             longueur = longueur + WAVFILE_SAMPLES_PER_SECOND*0.5*1.3*(li-1);
@@ -221,21 +218,17 @@ void traduire_fr_mo(){
                     char c = code[j];
                     if (c=='.'){
                         court(donnees_wav,&top);
-                        //std::cout << "court" << std::endl;
                     }
                     else if (c=='-'){
                         longue(donnees_wav,&top);
-                        //std::cout << "long" << std::endl;
                     }
                     else if (c==' '){
                         espace_mot(donnees_wav,&top);
-                        //std::cout << "espace mot" << std::endl;
                         not_espace=0;
                     }
                 }
                 if (not_espace){
                     espace_cara(donnees_wav,&top);
-                    //std::cout << "espace cara" << std::endl;
                 }
                 else{
                     not_espace=1;
@@ -244,7 +237,6 @@ void traduire_fr_mo(){
             }
             if ((li!=li2) & (b==0)){
                 espace_ligne(donnees_wav,&top);
-                //std::cout << "espace ligne" << std::endl;
             }
         }
 
@@ -254,8 +246,6 @@ void traduire_fr_mo(){
     //on écrit notre liste de données dans le fichier wav créé
         wavfile_write(fichier_traduction,donnees_wav,longueur);
         wavfile_close(fichier_traduction);
-
-        //std::cout << "longueur du fichier wav : " << longueur << std::endl;
 
         if (b){//on efface le fichier texte qui a été créé (si on n'avait pas passé un fichier texte directement)
             remove("traduire.txt");
