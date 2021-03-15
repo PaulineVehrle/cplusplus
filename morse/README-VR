@@ -1,0 +1,29 @@
+fr_to_mo.cpp:// vr: voir les commentaires de la fonction fichier_wav
+fr_to_mo.cpp:  // vr: c'est bien la constante static dans une fonction, mais on préfèrerait une classe pour ranger cela avec les méthodes qui s'appliquent 
+fr_to_mo.cpp:  // vr: vous auriez pu utiliser une std::map
+fr_to_mo.cpp:      // vr: utilisez 'A' à la place de 64 c'est plsu lisible
+fr_to_mo.cpp:  //vr: là encore évitez de toujours recalculer les mêmes choses
+main.cpp:// vr: vous avez oublié de mettre le Makefile dans votre repo
+main.cpp:// vr: ne mettez pas de code directement dans le main mais appelez-y des fonctions
+main.cpp:  // vr: mettez les definitions des variables au plus proche de leur utilisation
+mo_to_fr.cpp:// vr: vous pourriez ne faire qu'un seule fonction pour fichier_texte et fichier_wav en passant l'extension "wav" ou "txt" en argument
+mo_to_fr.cpp:// vr: à la fonction fichier_wav (ou fichier_texte) passez la string par référence pour éviter de recopier l'objet en argument
+mo_to_fr.cpp:    bool b = false; // vr: initialisez toujours vos variables
+mo_to_fr.cpp:    // vr: utilisez des noms plus parlant pour vos variables b ne veut rien dire (à part boolean ?)
+mo_to_fr.cpp:      b = false; // vr: utilisez true et false plutôt que 1 et 0
+mo_to_fr.cpp:// vr: vous avez codé à la main l'arbre des caractères alphabetiques morses ce n'est pas mal (avec plus de temps pour le projet vous auriez pu construire automatiquement cet arbre)
+mo_to_fr.cpp:// vr: vous avez écrit un code personnel, c'est vraiment bien, avec plus de temps vous pourriez retravailler ce code pour en faire quelque chose de très bien (avec des classes et des méthodes)
+mo_to_fr.cpp:    // vr: passez la string à la fonction fichier_wav pas le char* sous-jacent
+mo_to_fr.cpp:		       // vr: ne recalculez pas tout le temps les mêmes choses  (comme ici WAVFILE_SAMPLES_PER_SECOND*0.5*0.251) faites en des attributs/méthodes d'une classe
+mo_to_fr.cpp:		      // vr: pourquoi mettez-vous & pour tester toto_cara ? c'est && ou and
+mo_to_fr.cpp:		      // vr: ici on préfèrerais lire "if (truc.est_un_point(toto_cara)"
+mo_to_fr.cpp:			// vr: idem & est and
+mo_to_fr.cpp:			// vr: on préfèrerais lire if (est_un_trait(toto_cara)
+mo_to_fr.cpp:			  // vr: le code suivant est dupliqué 3 fois avec très peu de changements, il faut que vous factorisiez (découpiez) votre code
+mo_to_fr.cpp:			    // vr: seule code différent pour ce if
+mo_to_fr.cpp:			    // vr: seule code différent pour ce if
+mo_to_fr.h:// vr: mettez la protection de vos fichiers d'entête en début de fichier (avant les inclusions)
+mo_to_fr.h:// vr: à savoir: vous pouvez mettre la ligne #pragma once en début du fichier d'entête, cela remplacera les trois lignes
+wavfile.cpp:// vr: il faudrait mettre les fonctions en méthodes de cette classe et la mettre class et pas struct
+wavfile.cpp:// vr: c'est du c je pense que c'est du code récupéré sur Internet, je vais éviter de le lire, vous avez très bien travaillé
+wavfile.cpp:        // vr: c'est du c je pense que c'est du code récupéré, je ne vais pas le lire

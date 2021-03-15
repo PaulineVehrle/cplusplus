@@ -10,6 +10,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+// vr: il faudrait mettre les fonctions en méthodes de cette classe et la mettre class et pas struct
+// vr: c'est du c je pense que c'est du code récupéré sur Internet, je vais éviter de le lire, vous avez très bien travaillé
+
 struct wavfile_header {
 	char	riff_tag[4];
 	int	riff_length;
@@ -28,6 +31,7 @@ struct wavfile_header {
 
 FILE * wavfile_open( const char *filename )
 {
+        // vr: c'est du c je pense que c'est du code récupéré, je ne vais pas le lire
 	struct wavfile_header header;
 
 	int samples_per_second = WAVFILE_SAMPLES_PER_SECOND*0.5;

@@ -11,6 +11,7 @@
 //#include <errno.h>
 
 
+// vr: voir les commentaires de la fonction fichier_wav
 bool fichier_texte(std::string file_name){//renvoie True si c'est bien un fichier texte qui est passer, False si c'est juste un texte écrit
     int s=file_name.size();
     bool b;
@@ -25,13 +26,18 @@ bool fichier_texte(std::string file_name){//renvoie True si c'est bien un fichie
 
 const char* en_morse(char caractere){// renvoie la valeur morse d'un caractère donné en entrée
     //on crée des listes avec les correspondances français<->morse
+  // vr: c'est bien la constante static dans une fonction, mais on préfèrerait une classe pour ranger cela avec les méthodes qui s'appliquent 
+  // vr: vous auriez pu utiliser une std::map
     static const char *morse[27] = {".-", "-...", "-.-.", "-..", ".","..-.", "--.", "....", "..", ".---", "-.-", ".-..", "--", "-.", "---", ".--.", "--.-", ".-.", "...", "-", "..-", "...-", ".--", "-..-", "-.--", "--.."," "};
     static const char alph[] = {'a', 'b', 'c', 'd', 'e', 'f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',' '};
+
     int entier = caractere;//on recuperer le code ascii de la lettre
-    if ((entier>64)&(entier<91)){//la lettre est une majuscule
+    // pas & mais and
+    if ((entier>64) and (entier<91)){//la lettre est une majuscule
+      // vr: utilisez 'A' à la place de 64 c'est plsu lisible
         entier=entier-65;
     }
-    if ((entier>96)&(entier<123)){//la lettre est une minuscule
+    if ((entier>96) and (entier<123)){//la lettre est une minuscule
         entier=entier-97;
     }
     if (entier==32){
@@ -43,6 +49,7 @@ const char* en_morse(char caractere){// renvoie la valeur morse d'un caractère 
 }
 
 void court (short* donnees_wav, int* top){// on ajoute un son court au fichier
+  //vr: là encore évitez de toujours recalculer les mêmes choses
     const int NUM_SAMPLES = (WAVFILE_SAMPLES_PER_SECOND*0.5*0.25);
     const int NUM_SAMPLES_espace = (WAVFILE_SAMPLES_PER_SECOND*0.5*0.05);
 	double frequency = 440.0;
